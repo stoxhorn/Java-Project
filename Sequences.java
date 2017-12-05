@@ -2,38 +2,37 @@ import java.util.Arrays;
 
 public class Sequences{
     public static int[] extractSequence(int[][] seq, int[] pos, int[] dir){
+        /* Takes the given 2d array, with a position and direction given as an array with a length of 2, and returns
+        a list, with the integers at the position of the line */
+
+
+        //parsing the arguments into usable variables
         int x = pos[0];
         int y = pos[1];
         int dx = dir[0];
         int dy = dir[1];
-        int dist = 20;
-        int[][] rSequence = new int[dist][2];
-        int tmp;
-        int[][] arrtmp;
-        int[] result = new int[dist];
-
-        for (int i = 0; i < dist; i++){
-            tmp = x+i*dx;
-            rSequence[i][0] = tmp;
-            tmp = y+i*dy;
-            rSequence[i][1] = tmp;
-        }
-        int i = 1;
-        System.out.println(i);
-        System.out.println(seq[2].length);
+        
+        // Set the array giving out the result a max length of 40, because i'm too lazy to make it dynamic
+        int[] result = new int[40];
+        
+        // variables to handle the loop
+        int i = 0;
         boolean bln = true;
-
+        
+        // tries a loop, until the it reaches the exception out of bounds
         while( bln == true ){
-            result[i-1] = seq[x][y];
-            x = rSequence[i][0];
-            y = rSequence[i][1];
-            i++;
-            if (x < seq[2].length || y < seq.length){
-
-            } else {
+            try{
+                result[i] = seq[x][y];
+                x = x + dx;
+                y = y + dy;
+                i++;
+            } catch(ArrayIndexOutOfBoundsException exception) {
                 bln = false;
             }
         }
+
+        // Cleans up the array
+        result = Arrays.copyOf(result, i);
         return result;
     }
     public static int maxRun(int[] arr, int max){
@@ -61,9 +60,14 @@ public class Sequences{
     }
     public static void main(String[] args){
         int[][] kek = {
-            { 1, 2, 3},
-            { 1, 2, 3},
-            { 1, 2, 3}
+            { 1, 2, 3, 4, 5, 6, 7, 8},
+            { 1, 2, 3, 4, 5, 6, 7, 8},
+            { 1, 2, 3, 4, 5, 6, 7, 8},
+            { 1, 2, 3, 4, 5, 6, 7, 8},
+            { 1, 2, 3, 4, 5, 6, 7, 8},
+            { 1, 2, 3, 4, 5, 6, 7, 8},
+            { 1, 2, 3, 4, 5, 6, 7, 8},
+            { 1, 2, 3, 4, 5, 6, 7, 8} 
         };
         
         int[] pos;
